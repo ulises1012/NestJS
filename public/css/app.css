@@ -17,3 +17,7 @@ nav {
 .img-card {
     height: 18vw; object-fit: cover;
 }
+
+.cover {
+    height: 14vw; object-fit: cover;
+}
