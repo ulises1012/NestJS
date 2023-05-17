@@ -4,6 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as hbs from 'hbs';
 import * as hbsUtils from 'hbs-utils';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 // Configuring Handlebars
 async function bootstrap() {
@@ -16,6 +17,16 @@ async function bootstrap() {
   hbsUtils(hbs).registerWatchedPartials(join(__dirname, '..', 'views/layout'));
 
   app.setViewEngine('hbs');
+
+  const config = new DocumentBuilder()
+    .setTitle('Online Store API')
+    .setDescription('API description')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);
 }
