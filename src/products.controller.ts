@@ -1,7 +1,9 @@
 import { Controller, Render, Get, Param } from '@nestjs/common';
+import { ProductsService } from './models/products.service';
 
 @Controller('/products')
 export class ProductsController {
+  constructor(private readonly productsService: ProductsService) {}
 
   @Get('/')
   @Render('products/index')
