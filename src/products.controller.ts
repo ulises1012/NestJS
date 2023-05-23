@@ -7,11 +7,11 @@ export class ProductsController {
 
   @Get('/')
   @Render('products/index')
-  index() {
+  async index() {
     const viewData = [];
     viewData['title'] = 'Products - Online Store';
     viewData['subtitle'] = 'List of products';
-    viewData['products'] = ProductsController.products;
+    viewData['products'] = await this.productsService.findAll();
 
     return {
       viewData: viewData,
