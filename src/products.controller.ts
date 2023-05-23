@@ -22,7 +22,7 @@ export class ProductsController {
   async show(@Param() params, @Res() response) {
     const product = await this.productsService.findOne(params.id);
     
-    if (product === undefined) {
+    if (product === null) {
       return response.redirect('/products');
     }
     
