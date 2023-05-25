@@ -32,4 +32,10 @@ export class AdminProductsController {
 
     await this.productsService.createOrUpdate(newProduct);
   }
+
+  @Post('/:id')
+  @Redirect('/admin/products')
+  remove(@Param('id') id: string) {
+    return this.productsService.remove(id);
+  }
 }
