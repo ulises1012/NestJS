@@ -5,6 +5,8 @@ import { join } from 'path';
 import * as hbs from 'hbs';
 import * as hbsUtils from 'hbs-utils';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as session from 'express-session';
+
 
 // Configuring Handlebars
 async function bootstrap() {
@@ -17,6 +19,17 @@ async function bootstrap() {
   hbsUtils(hbs).registerWatchedPartials(join(__dirname, '..', 'views/layout'));
 
   app.setViewEngine('hbs');
+  app.use(
+    session({
+      secret: 'nest-book',
+      resave: false,
+      saveUninitialized:false,
+    }),
+  );
+  app.use(function(req, res, next){
+    res.locals.session = req.session;
+    next();
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Online Store API')
