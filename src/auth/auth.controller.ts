@@ -64,9 +64,16 @@ export class AuthController {
         name: user.getName(),
         role: user.getRole(),
       };
+
       return response.redirect('/');
     } else {
       return response.redirect('/auth/login');
     }
+  }
+
+  @Get('/logout')
+  @Redirect('/')
+  logout(@Req() request) {
+    request.session.user = null;
   }
 }
