@@ -7,6 +7,7 @@ import { ProductsService } from './models/products.service';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule} from './auth/auth.module';
 import { UsersService } from './models/user.service';
+import { User } from './models/user.entity';
 
 @Global()
 @Module({
@@ -21,7 +22,7 @@ import { UsersService } from './models/user.service';
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Product, User]),
     AdminModule,
     AuthModule,
   ],
