@@ -14,7 +14,21 @@ export class UsersService {
   async createOrUpdate(user: User): Promise<User> {
     const hash = await bcrypt.hash(user.getPassword(), 10);
     user.setPassword(hash);
-    
+
     return this.usersRepository.save(user);
+  }
+
+  async login(email: string, password: string): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { email: email },
+    });
+
+    if (user) {
+      const isMatch = await bcrypt.compare(password, user.getPassword());
+      if (isMatch) {
+        return user;
+      }
+    }
+    return null;
   }
 }
