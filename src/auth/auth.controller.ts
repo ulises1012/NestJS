@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Redirect, Render } from "@nestjs/common";
+import { Body, Controller, Get, Post, Redirect, Render, Req, Res } from "@nestjs/common";
 import { User } from "src/models/user.entity";
 import { UsersService } from "src/models/user.service";
 
@@ -30,5 +30,17 @@ export class AuthController {
     newUser.setBalance(1000);
 
     await this.userService.createOrUpdate(newUser);
+  }
+
+  @Get('/login')
+  @Render('auth/login')
+  login() {
+    const viewData = [];
+    viewData['title'] = 'User Login - Online Store';
+    viewData['subtitle'] = 'User login';
+    
+    return {
+      viewData: viewData,
+    }
   }
 }
