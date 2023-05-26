@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Redirect, Render } from "@nestjs/common";
+import { User } from "src/models/user.entity";
 import { UsersService } from "src/models/user.service";
 
 
@@ -16,5 +17,18 @@ export class AuthController {
     return {
       viewData: viewData,
     }
+  }
+
+  @Post('/store')
+  @Redirect('/')
+  async store(@Body() body) {
+    const newUser = new User();
+    newUser.setName(body.name);
+    newUser.setPassword(body.Password);
+    newUser.setEmail(body.Email);
+    newUser.setRole(body.role);
+    newUser.setBalance(1000);
+
+    await this.userService.createOrUpdate(newUser);
   }
 }
