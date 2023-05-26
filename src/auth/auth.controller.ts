@@ -24,9 +24,9 @@ export class AuthController {
   async store(@Body() body) {
     const newUser = new User();
     newUser.setName(body.name);
-    newUser.setPassword(body.Password);
-    newUser.setEmail(body.Email);
-    newUser.setRole(body.role);
+    newUser.setPassword(body.password);
+    newUser.setEmail(body.email);
+    newUser.setRole('Client');
     newUser.setBalance(1000);
 
     await this.userService.createOrUpdate(newUser);
