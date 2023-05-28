@@ -12,7 +12,7 @@ import { Product } from 'src/models/product.entity';
 import { ProductsService } from 'src/models/products.service';
 
 @Controller('/cart')
-export class cartController {
+export class CartController {
   constructor(private readonly productService: ProductsService) {}
 
   @Get('/')
@@ -42,7 +42,7 @@ export class cartController {
 
   @Post('/add/:id')
   @Redirect('/cart')
-  add(@Param('id') id: number, @Body() Body, @Req() request) {
+  add(@Param('id') id: number, @Body() body, @Req() request) {
     let productsInSession = request.session.products;
 
     if (!productsInSession) {
