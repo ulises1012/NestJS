@@ -52,4 +52,10 @@ export class cartController {
     productsInSession[id] = body.quantity;
     request.session.products = productsInSession;
   }
+
+  @Get('/delete')
+  @Redirect('/cart')
+  delete(@Req() request) {
+    request.session.products = null;
+  }
 }
