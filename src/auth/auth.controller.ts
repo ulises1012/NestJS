@@ -36,7 +36,7 @@ export class AuthController {
     if (errors.length > 0) {
       request.session.flashErrors = errors;
 
-      return response.redirect('auth/register');
+      return response.redirect('/auth/register');
     } else {
       const newUser = new User();
       newUser.setName(body.name);
