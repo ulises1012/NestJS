@@ -85,7 +85,6 @@ export class AdminProductsController {
 
   @Post('/:id/update')
   @UseInterceptors(FileInterceptor('image', { dest: './public/uploads' }))
-  @Redirect('/admin/products')
   async update(
     @Body() body,
     @UploadedFile() file: Express.Multer.File,
