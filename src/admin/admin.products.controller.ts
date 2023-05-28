@@ -9,6 +9,7 @@ import {
   UploadedFile,
   Param,
   Req,
+  Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Product } from 'src/models/product.entity';
@@ -89,16 +90,36 @@ export class AdminProductsController {
     @Body() body,
     @UploadedFile() file: Express.Multer.File,
     @Param('id') id: number,
+    @Req() request,
+    @Res() response,
   ) {
-    const product = await this.productsService.findOne(id);
-    product.setName(body.name);
-    product.setDescription(body.description);
-    product.setPrice(body.price);
+    const toValidate: string[] = [
+      'name',
+      'description',
+      'price',
+      'imageUpdate',
+    ];
+    const errors: string[] = ProductValidator.validate(body, file, toValidate);
 
-    if (file) {
-      product.setImage(file.filename);
+    if (errors.length > 0) {
+      if (file) {
+        fs.unlinkSync(file.path);
+      }
+      request.session.flashErrors = errors;
+
+      return response.redirect('/admin/products/' + id);
+    } else {
+      const product = await this.productsService.findOne(id);
+      product.setName(body.name);
+      product.setDescription(body.description);
+      product.setPrice(body.price);
+
+      if (file) {
+        product.setImage(file.filename);
+      }
+
+      await this.productsService.createOrUpdate(product);
+      return response.redirect('/admin/products/');
     }
-
-    await this.productsService.createOrUpdate(product);
   }
 }
