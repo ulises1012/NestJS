@@ -1,6 +1,15 @@
-import { Controller, Get, Render, Req } from "@nestjs/common";
-import { Product } from "src/models/product.entity";
-import { ProductsService } from "src/models/products.service";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Redirect,
+  Render,
+  Req,
+} from '@nestjs/common';
+import { Product } from 'src/models/product.entity';
+import { ProductsService } from 'src/models/products.service';
 
 @Controller('/cart')
 export class cartController {
@@ -29,5 +38,18 @@ export class cartController {
     return {
       viewData: viewData,
     };
+  }
+
+  @Post('/add/:id')
+  @Redirect('/cart')
+  add(@Param('id') id: number, @Body() Body, @Req() request) {
+    let productsInSession = request.session.products;
+
+    if (!productsInSession) {
+      productsInSession = {};
+    }
+
+    productsInSession[id] = body.quantity;
+    request.session.products = productsInSession;
   }
 }
