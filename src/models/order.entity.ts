@@ -60,5 +60,4 @@ export class Order {
   setItem(item: Item) {
     this.item = item;
   }
- 
 }
