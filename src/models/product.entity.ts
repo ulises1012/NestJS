@@ -1,10 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Item } from "./item.entity";
-
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Item } from './item.entity';
 
 @Entity()
 export class Product {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,7 +22,7 @@ export class Product {
   items: Item[];
 
   getId(): number {
-    return this.id
+    return this.id;
   }
 
   setId(id: number) {
@@ -71,10 +69,11 @@ export class Product {
     this.items = items;
   }
 
-  static sumPricesByQuantities(products: Product[], productsInSession) : number {
+  static sumPricesByQuantities(products: Product[], productsInSession): number {
     let total = 0;
     for (let i = 0; i < products.length; i++) {
-      total = total + products[i].getPrice() * productsInSession[products[i].getId()];
+      total =
+        total + products[i].getPrice() * productsInSession[products[i].getId()];
     }
     return total;
   }
