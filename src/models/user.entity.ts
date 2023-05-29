@@ -1,16 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Order } from './order.entity';
 
 @Entity()
 export class User {
-
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @Column({ unique: true})
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -21,6 +20,9 @@ export class User {
 
   @Column()
   balance: number;
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   getId(): number {
     return this.id;
@@ -68,5 +70,13 @@ export class User {
 
   setBalance(balance: number) {
     this.balance = balance;
+  }
+
+  getOrders(): Order[] {
+    return this.orders;
+  }
+
+  setOrders(orders: Order[]) {
+    this.orders = orders;
   }
 }
