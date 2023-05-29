@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { Item } from './item.entity';
 
 @Entity()
 export class Order {
@@ -19,7 +20,7 @@ export class Order {
   @ManyToOne(() => User, (user) => user.orders)
   user: User;
   @OneToMany(() => Item, (item) => item.order)
-  item: Item[];
+  items: Item[];
 
   getId(): number {
     return this.id;
@@ -53,11 +54,11 @@ export class Order {
     this.user = user;
   }
 
-  getItem(): Item {
-    return this.item;
+  getItems(): Item[] {
+    return this.items;
   }
 
-  setItem(item: Item) {
-    this.item = item;
+  setItems(items: Item[]) {
+    this.items = items;
   }
 }
