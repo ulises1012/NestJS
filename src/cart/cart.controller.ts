@@ -109,7 +109,7 @@ export class CartController {
       viewData['subtitle'] = 'Purchase Status';
       viewData['orderId'] = order.getId();
 
-      return response.render('cart/purchase', { viewData: viewData});
+      return response.render('cart/purchase', { viewData: viewData });
     }
   }
 }
