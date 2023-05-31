@@ -12,7 +12,7 @@ export class AccountController {
     viewData['title'] = 'My Orders - Online Store';
     viewData['subtitle'] = 'My Orders';
     viewData['orders'] = await this.ordersService.findByUserId(
-      request.session.user.id,
+      request.session.userId,
     );
 
     return {
