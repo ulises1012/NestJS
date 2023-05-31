@@ -19,7 +19,7 @@ export class OrdersService {
       where: {
         user: { id: id},
       },
-      relations: ['item', 'items.product'],
+      relations: ['items', 'items.product'],
     });
   }
 }
